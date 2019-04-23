@@ -1,6 +1,6 @@
 # CalU Book Exchange
 
-The CalU Book exchange is a web application that allows students at CalU to buy and sell their used textbooks. The users must sign up with a @calu.edu email address. It was created as a senior project at California University of Pennsylvania. 
+The CalU Book exchange is a web application that allows students at CalU to buy and sell used textbooks. The users must sign up with a @calu.edu email address. It was created as a senior project at California University of Pennsylvania by a group of three students.
 
 ## Built With
 
