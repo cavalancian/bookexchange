@@ -16,6 +16,7 @@ var transporter = nodemailer.createTransport({
 //buy book route
 router.post("/:id/buy", middleWare.isLoggedIn, function (req, res) {
     //update book to sold
+    var buyerEmail;
     Book.findById(req.params.id, function (err, foundBook) {
        if(err) {
            req.flash("error", "Cannot find the book you're trying to buy");
@@ -46,6 +47,7 @@ router.post("/:id/buy", middleWare.isLoggedIn, function (req, res) {
                    req.flash("error", "Error finding user during transaction");
                    return res.redirect("/books");
                }
+               buyerEmail = buyer.username;
                buyer.transactions.push(transaction);
                buyer.save();
            });
@@ -62,7 +64,8 @@ router.post("/:id/buy", middleWare.isLoggedIn, function (req, res) {
                    from: 'calubookex@gmail.com',
                    to: seller.username,
                    subject: 'DONOTREPLY Your book ' + foundBook.name + ' has sold',
-                   html: '<h1>You\'ve sold a book!</h1><p>Please check your account transactions!</p>'
+                   html: '<h1>You\'ve sold a book!</h1><p>Please check your <a href="http://calubookexchange.hopto.org/login">account</a> transactions and' +
+                       ' contact the buyer (' + buyerEmail + ') to arrange payment.</p>'
                };
                //send the mail!
                await transporter.sendMail(mailOptions, function(error, info){
